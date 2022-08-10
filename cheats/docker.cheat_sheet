@@ -126,6 +126,14 @@ windows:
 
 docker commit -c "CMD 'redis-server'" CONTAINERID
 
+--to map the port for container (can map the port while running container only)
+--this is for only incoming requests. No needed for out going requests
+--your machine port:portlistening in container
+
+docker run -p your_machine_port:port_listening_in_container IMAGE_NAME
+
+docker run -p 8061:8080 IMAGE_NAME
+
 
 NOTES:
 
@@ -134,6 +142,8 @@ NOTES:
 -cache: Docker uses cache based on the steps while building the image
 -image build :  while building docker imagethe base image will act as like OS which will used add the packages on top of it.
 -intermediate Images: These images are built while building docker image. These steps are used by docker for cache mechanism.(not to run every instruction for every run)
+-order of instructions matters in docker file
+-always have the dependency copy path above the instruction, otherwise every build will take much time for small change in the any other file.
 
 
 
