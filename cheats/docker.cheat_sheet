@@ -1,0 +1,147 @@
+--to download and run the image;
+
+docker run IMAGE_NAME
+
+--to create a container
+
+docker create IMAGE_NAME
+
+--to start a container
+
+docker start CONTAINER_ID
+
+--to start a container to show the default message
+
+docker start -a CONTAINER_ID
+
+--to start used container(which is exited)
+
+docker start CONTAINER_ID
+
+--to list the container that are up
+
+docker ps
+
+--to list all containers
+
+docker ps -a (or) docker ps -al (or) docker ps --all
+
+--delete the containers that are exited(status).
+
+docker system prune
+
+--to print the logs in the container
+
+docker logs CONTAINER_ID
+
+--stop the containers:
+
+	using stop:
+
+--will take some to stop (which will clear the resources)
+
+docker stop CONTAINER_ID 
+
+--to kill immediately
+
+docker kill CONATINER_ID
+
+=>NOTE: CONATINER_ID or CONATINER_NAME can be used in the above or below commands
+
+--execute an command inside the container and take the input text (-it) 
+
+#preferable
+
+docker exec -it CONTAINER_ID COMMAND
+
+same representation of above command
+
+docker exec -i -t CONTAINER_ID COMMAND
+
+--execute an command inside the container without any format shown in cli
+
+#not preferable because it will not fomat(display) pretty
+
+docker exec -i CONTAINER_ID COMMAND
+
+--get the terminal access inside the container and execute any command
+
+docker exec -it CONTAINER_ID sh
+
+--exit from the container:
+
+exit or ctrl+D
+
+=>NOTE: exec works for the containers that are already running.
+
+--Example using busybox
+
+docker run busybox echo hello-world
+
+steps:
+
+-image download
+-conatiner created
+-conatiner started
+-echo program inside the container takes hello-world
+-process the input and provides the output
+
+=>NOTE:by default echo command supports in busybox image, so there is no error while executing command
+
+--other way to execute the hello-world with echo
+
+docker run -it busybox sh
+
+#above commands enters into shell of busybox, now excute the below command to use busy box container
+
+echo hello-world
+
+ping google.com
+
+--to exit shell
+
+ctrl+C
+
+--to exit docker container
+
+exit or ctrl+D
+
+--To create a docker image | dot below is build context which will be used to wrap the file in the image
+
+docker build .
+
+-- to run container using image | use the id of image to create and run the container
+
+docker run image_name
+
+--tag a image (giving the image a name) | format prefered: username/project:version
+
+docker build -t myredis .
+
+--to create image  out of running container 
+
+docker commit -c 'CMD ["redis-server"]' CONTAINERID
+
+windows:
+
+docker commit -c "CMD 'redis-server'" CONTAINERID
+
+
+NOTES:
+
+-docker file(no extension)  -> Dockerfile
+-comment in docker file  -> #comment
+-cache: Docker uses cache based on the steps while building the image
+-image build :  while building docker imagethe base image will act as like OS which will used add the packages on top of it.
+-intermediate Images: These images are built while building docker image. These steps are used by docker for cache mechanism.(not to run every instruction for every run)
+
+
+
+
+
+
+
+
+
+
+
