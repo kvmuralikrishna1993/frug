@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  #redis container
+  redis-server:
+    image: 'redis'
+  # node app builded
+  node-app:
+    #policy that will be used to restart container when it is crashed
+    restart: always
+    build: .
+    # left(machine port):right(node-app-port)
+    ports:
+      - "5001:8081"
+# how do redis, my node app communicate ?
+# network is being handled by docker compose and automatically connected by docker compose

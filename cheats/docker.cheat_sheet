@@ -118,13 +118,18 @@ docker run image_name
 
 docker build -t myredis .
 
---to create image  out of running container 
+--to create image  out of running container
 
-docker commit -c 'CMD ["redis-server"]' CONTAINERID
+
+docker commit -c 'CMD ["container-starter-cmd"]' CONTAINERID
+
+ex: docker commit -c 'CMD ["redis-server"]' CONTAINERID
 
 windows:
 
-docker commit -c "CMD 'redis-server'" CONTAINERID
+docker commit -c "CMD 'container-starter-cmd'" CONTAINERID
+
+ex: docker commit -c "CMD 'redis-server'" CONTAINERID
 
 --to map the port for container (can map the port while running container only)
 --this is for only incoming requests. No needed for out going requests
@@ -134,6 +139,34 @@ docker run -p your_machine_port:port_listening_in_container IMAGE_NAME
 
 docker run -p 8061:8080 IMAGE_NAME
 
+**Docker Compose**
+
+--run image using docker-compose (equal to docker run IMAGE_NAME. It uses docker-compose.yml file)
+
+docker-compose up
+
+--to build and run using docker-compose (equal to {docker build . }+ {docker run IMAGE_NAME})
+ 
+docker-compose up --build
+
+--to run container in the background
+
+docker run -d IMAGE_NAME
+
+--to start group of container using docker-compose in the background
+
+docker-compose up -d
+
+--to down the docker container using docker-compose 
+
+docker-compose down
+
+--to list down the using docker-compose (use this only when docker-compose.yml and run cmd in the same path otherwise it returns error)
+
+docker-compose ps
+
+
+===============================================================
 
 NOTES:
 
@@ -144,7 +177,8 @@ NOTES:
 -intermediate Images: These images are built while building docker image. These steps are used by docker for cache mechanism.(not to run every instruction for every run)
 -order of instructions matters in docker file
 -always have the dependency copy path above the instruction, otherwise every build will take much time for small change in the any other file.
-
+docker-compose will use to start mutiple containers at same time and easy networking bt them
+can use the restart policies to restart the containers which are crashed or exited in between
 
 
 
