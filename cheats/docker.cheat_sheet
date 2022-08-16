@@ -165,6 +165,26 @@ docker-compose down
 
 docker-compose ps
 
+--build image using custom docker file (f means file)
+
+docker build -f DOCKER_FILE_NAME .
+
+--build a docker image with custom name and custom docker file
+
+ docker build -t IMAGE_NAME -f DOCKER_FILE_NAME
+
+ --run a container with volumes attached.
+
+  docker run -p local_machine_port:container_port -v PATH_TO_EXCLUDE -v LOCAL_MACHINE_PATH:PATH_IN_CONTAINER IMAGE_NAME
+
+note:Working directory path is /workarea/app
+
+ docker run -p local_machine_port:container_port -v /workarea/app/node_modules -v /$(pwd):/workarea/app frontend
+
+ --to overide the inbuilt command in image.
+docker run IMAGE command
+
+
 
 ===============================================================
 
@@ -179,7 +199,7 @@ NOTES:
 -always have the dependency copy path above the instruction, otherwise every build will take much time for small change in the any other file.
 docker-compose will use to start mutiple containers at same time and easy networking bt them
 can use the restart policies to restart the containers which are crashed or exited in between
-
+Use volume mappings to bind the files inside the container. by using the volumes the changes in the files affects the container
 
 
 
