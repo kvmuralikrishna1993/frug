@@ -1,205 +1,205 @@
---to download and run the image;
+--  To download and run the image;
 
 docker run IMAGE_NAME
 
---to create a container
+--  To create a container
 
 docker create IMAGE_NAME
 
---to start a container
+--  To start a container
 
 docker start CONTAINER_ID
 
---to start a container to show the default message
+--  To start a container to show the default message
 
 docker start -a CONTAINER_ID
 
---to start used container(which is exited)
+--  To start used container(which is exited)
 
 docker start CONTAINER_ID
 
---to list the container that are up
+--  To list the container that is up
 
 docker ps
 
---to list all containers
+--  To list all containers
 
 docker ps -a (or) docker ps -al (or) docker ps --all
 
---delete the containers that are exited(status).
+--  Delete the containers that are exited(status).
 
 docker system prune
 
---to print the logs in the container
+--  To print the logs in the container
 
 docker logs CONTAINER_ID
 
---stop the containers:
+--  Stop the containers:
 
-	using stop:
+    using stop:
 
---will take some to stop (which will clear the resources)
+--  Will take some to stop (which will clear the resources)
 
 docker stop CONTAINER_ID 
 
---to kill immediately
+--  To kill immediately
 
 docker kill CONATINER_ID
 
-=>NOTE: CONATINER_ID or CONATINER_NAME can be used in the above or below commands
+=> NOTE: CONATINER_ID or CONATINER_NAME can be used in the above or below commands
 
---execute an command inside the container and take the input text (-it) 
+--  Execute a command inside the container and take the input text (-it) 
 
 #preferable
 
 docker exec -it CONTAINER_ID COMMAND
 
-same representation of above command
+Same representation of the above command
 
 docker exec -i -t CONTAINER_ID COMMAND
 
---execute an command inside the container without any format shown in cli
+--  Execute a command inside the container without any format shown in cli
 
-#not preferable because it will not fomat(display) pretty
+#Not preferable because it will not format(display) pretty
 
 docker exec -i CONTAINER_ID COMMAND
 
---get the terminal access inside the container and execute any command
+--  Get the terminal access inside the container and execute any command
 
 docker exec -it CONTAINER_ID sh
 
---exit from the container:
+--  Exit from the container:
 
 exit or ctrl+D
 
-=>NOTE: exec works for the containers that are already running.
+=> NOTE: exec works for the containers that are already running.
 
---Example using busybox
+--  Example using busybox
 
 docker run busybox echo hello-world
 
-steps:
+Steps:
 
--image download
--conatiner created
--conatiner started
--echo program inside the container takes hello-world
--process the input and provides the output
+-Image download
+-Container created
+-Container started
+-Print program inside the container takes hello-world
+-Process the input and provides the output
 
-=>NOTE:by default echo command supports in busybox image, so there is no error while executing command
+=> NOTE: By default, the echo command supports in busybox image, so there is no error while executing the command
 
---other way to execute the hello-world with echo
+--  Another way to execute the hello-world with echo
+
+Example:
 
 docker run -it busybox sh
 
-#above commands enters into shell of busybox, now excute the below command to use busy box container
+#Above commands enter into the shell of busybox, now execute the below command to use busy box container
 
 echo hello-world
 
 ping google.com
 
---to exit shell
+--to exit the shell
 
 ctrl+C
 
---to exit docker container
+--  To exit the docker container
 
 exit or ctrl+D
 
---To create a docker image | dot below is build context which will be used to wrap the file in the image
+--  To create a docker image | dot below is the build context which will be used to wrap the file in the image
 
 docker build .
 
--- to run container using image | use the id of image to create and run the container
+--  To run a container using image | use the id of image to create and run the container
 
 docker run image_name
 
---tag a image (giving the image a name) | format prefered: username/project:version
+--  Tag an image (giving the image a name) | format prefered: username/project: version
 
-docker build -t myredis .
+docker build -t IMAGE_NAME .
 
---to create image  out of running container
-
+--  To create an image  out of the running container
 
 docker commit -c 'CMD ["container-starter-cmd"]' CONTAINERID
 
-ex: docker commit -c 'CMD ["redis-server"]' CONTAINERID
+Example: docker commit -c 'CMD ["redis-server"]' CONTAINERID
 
-windows:
+Windows:
 
 docker commit -c "CMD 'container-starter-cmd'" CONTAINERID
 
 ex: docker commit -c "CMD 'redis-server'" CONTAINERID
 
---to map the port for container (can map the port while running container only)
---this is for only incoming requests. No needed for out going requests
---your machine port:portlistening in container
+--  To map the port for the container (can map the port while running container only). This is for only incoming requests. No need for outgoing requests. Your machine port: port listening in container
 
 docker run -p your_machine_port:port_listening_in_container IMAGE_NAME
 
 docker run -p 8061:8080 IMAGE_NAME
 
-**Docker Compose**
+**Docker Compose**:
 
---run image using docker-compose (equal to docker run IMAGE_NAME. It uses docker-compose.yml file)
+--  Run the image using docker-compose (equal to docker run IMAGE_NAME. It uses docker-compose.yml file)
 
 docker-compose up
 
---to build and run using docker-compose (equal to {docker build . }+ {docker run IMAGE_NAME})
+--  To build and run using docker-compose (equal to {docker build . }+ {docker run IMAGE_NAME})
  
 docker-compose up --build
 
---to run container in the background
+--  To run the container in the background
 
 docker run -d IMAGE_NAME
 
---to start group of container using docker-compose in the background
+--  To start a group of the containers using docker-compose in the background
 
 docker-compose up -d
 
---to down the docker container using docker-compose 
+--  To down the docker container using docker-compose 
 
 docker-compose down
 
---to list down the using docker-compose (use this only when docker-compose.yml and run cmd in the same path otherwise it returns error)
+--  To list down the using docker-compose (use this only when docker-compose.yml and run cmd in the same path otherwise it returns an error)
 
 docker-compose ps
 
---build image using custom docker file (f means file)
+--  Build an image using a custom docker file (f means file)
 
 docker build -f DOCKER_FILE_NAME .
 
---build a docker image with custom name and custom docker file
+--  Build a docker image with a custom name and custom docker file
 
  docker build -t IMAGE_NAME -f DOCKER_FILE_NAME
 
- --run a container with volumes attached.
+ -- Run a container with volumes attached.
 
   docker run -p local_machine_port:container_port -v PATH_TO_EXCLUDE -v LOCAL_MACHINE_PATH:PATH_IN_CONTAINER IMAGE_NAME
 
-note:Working directory path is /workarea/app
+=> NOTE: Working directory path is /workarea/app
 
  docker run -p local_machine_port:container_port -v /workarea/app/node_modules -v /$(pwd):/workarea/app frontend
 
- --to overide the inbuilt command in image.
-docker run IMAGE command
+ -- To override the inbuilt command in the image.
 
+docker run IMAGE command
 
 
 ===============================================================
 
-NOTES:
 
--docker file(no extension)  -> Dockerfile
--comment in docker file  -> #comment
--cache: Docker uses cache based on the steps while building the image
--image build :  while building docker imagethe base image will act as like OS which will used add the packages on top of it.
--intermediate Images: These images are built while building docker image. These steps are used by docker for cache mechanism.(not to run every instruction for every run)
--order of instructions matters in docker file
--always have the dependency copy path above the instruction, otherwise every build will take much time for small change in the any other file.
-docker-compose will use to start mutiple containers at same time and easy networking bt them
-can use the restart policies to restart the containers which are crashed or exited in between
-Use volume mappings to bind the files inside the container. by using the volumes the changes in the files affects the container
+=> NOTES:
+
+--  Docker file(no extension)  -> Dockerfile
+--  Comment in docker file  -> #comment
+--  Docker uses cache based on the steps while building the image
+--  While building the docker image base image will act like an OS which will be used to add the packages on top of it.
+--  These images are built while building the docker image. These steps are used by docker for the cache mechanism. (not to run every instruction for every run)
+--  The order of instructions matters in the docker file
+--  Always have the dependency copy path above the instruction, otherwise, every build will take much time for a small change in any other file.
+--  Docker-compose will use to start multiple containers at the same time and easy networking for them
+--  Can use the restart policies to restart the containers which are crashed or exited in between
+--  Use volume mappings to bind the files inside the container. by using the volumes the changes in the files affects the container
 
 
 
